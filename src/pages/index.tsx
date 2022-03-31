@@ -30,7 +30,7 @@ interface HomeProps {
 const Home: NextPage<HomeProps> = props => {
   return (
     <>
-      <img src="/images/logo.svg" alt="ig.news" />
+      <img src="/images/logo.svg" alt="logo" />
 
       <h1>hello</h1>
     </>
