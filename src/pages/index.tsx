@@ -30,24 +30,24 @@ export default function Home() {
   return <h1>hello</h1>;
 }
 
-export const getStaticProps: GetStaticProps = async () => {
-  const prismic = getPrismicClient();
+// export const getStaticProps: GetStaticProps = async () => {
+//   const prismic = getPrismicClient();
 
-  const postsResponse = await prismic.query(
-    Prismic.predicates.at('document.type', 'posts')
-  );
+//   const postsResponse = await prismic.query(
+//     Prismic.predicates.at('document.type', 'posts')
+//   );
 
-  const posts = postsResponse.results.map(
-    (post): Post => ({
-      uid: post.uid,
-      first_publication_date: formatPostDate(post.last_publication_date),
-      data: {
-        title: post.data.title,
-        subtitle: post.data.subtitle,
-        author: post.data.author,
-      },
-    })
-  );
+//   const posts = postsResponse.results.map(
+//     (post): Post => ({
+//       uid: post.uid,
+//       first_publication_date: formatPostDate(post.last_publication_date),
+//       data: {
+//         title: post.data.title,
+//         subtitle: post.data.subtitle,
+//         author: post.data.author,
+//       },
+//     })
+//   );
 
-  return { props: { posts } };
-};
+//   return { props: { posts } };
+// };
