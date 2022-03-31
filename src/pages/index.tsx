@@ -4,8 +4,9 @@ import Prismic from '@prismicio/client';
 import { getPrismicClient } from '../services/prismic';
 
 import commonStyles from '../styles/common.module.scss';
-import styles from './home.module.scss';
 import { formatPostDate } from '../utils';
+
+import styles from './home.module.scss';
 
 interface Post {
   uid?: string;
@@ -27,9 +28,13 @@ interface HomeProps {
 }
 
 const Home: NextPage<HomeProps> = props => {
-  console.log(props);
+  return (
+    <>
+      <img src="/images/logo.svg" alt="ig.news" />
 
-  return <h1>hello</h1>;
+      <h1>hello</h1>
+    </>
+  );
 };
 
 export default Home;
