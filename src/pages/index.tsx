@@ -1,4 +1,4 @@
-import { GetStaticProps } from 'next';
+import { GetStaticProps, NextPage } from 'next';
 
 import Prismic from '@prismicio/client';
 import { getPrismicClient } from '../services/prismic';
@@ -26,28 +26,39 @@ interface HomeProps {
   postsPagination: PostPagination;
 }
 
-export default function Home() {
+const Home: NextPage<HomeProps> = props => {
+  console.log(props);
+
   return <h1>hello</h1>;
-}
+};
 
-// export const getStaticProps: GetStaticProps = async () => {
-//   const prismic = getPrismicClient();
+export default Home;
 
-//   const postsResponse = await prismic.query(
-//     Prismic.predicates.at('document.type', 'posts')
-//   );
+export const getStaticProps: GetStaticProps<HomeProps> = async () => {
+  const prismic = getPrismicClient();
 
-//   const posts = postsResponse.results.map(
-//     (post): Post => ({
-//       uid: post.uid,
-//       first_publication_date: formatPostDate(post.last_publication_date),
-//       data: {
-//         title: post.data.title,
-//         subtitle: post.data.subtitle,
-//         author: post.data.author,
-//       },
-//     })
-//   );
+  const postsResponse = await prismic.query(
+    Prismic.predicates.at('document.type', 'posts')
+  );
 
-//   return { props: { posts } };
-// };
+  const posts = postsResponse.results.map(
+    (post): Post => ({
+      uid: post.uid,
+      first_publication_date: formatPostDate(post.last_publication_date),
+      data: {
+        title: post.data.title,
+        subtitle: post.data.subtitle,
+        author: post.data.author,
+      },
+    })
+  );
+
+  const props: HomeProps = {
+    postsPagination: {
+      results: posts,
+      next_page: 'null',
+    },
+  };
+
+  return { props };
+};
