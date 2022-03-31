@@ -7,6 +7,7 @@ import commonStyles from '../styles/common.module.scss';
 import { formatPostDate } from '../utils';
 
 import styles from './home.module.scss';
+import Header from '../components/Header';
 
 interface Post {
   uid?: string;
@@ -30,6 +31,7 @@ interface HomeProps {
 const Home: NextPage<HomeProps> = props => {
   return (
     <>
+      <Header />
       <img src="/images/logo.svg" alt="logo" />
 
       <h1>hello</h1>
