@@ -17,15 +17,17 @@ export function PostLink({
   author,
 }: PostLinkProps): JSX.Element {
   return (
-    <Link href={`/post/${uid}`}>
-      <article>
-        <header>{title}</header>
-        <span>{subtitle}</span>
-        <footer>
-          <time dateTime={date}>{formatPostDate(date)}</time>
-          <span>{author}</span>
-        </footer>
-      </article>
+    <Link passHref href={`/post/${uid}`}>
+      <a>
+        <article>
+          <header>{title}</header>
+          <span>{subtitle}</span>
+          <footer>
+            <time dateTime={date}>{formatPostDate(date)}</time>
+            <span>{author}</span>
+          </footer>
+        </article>
+      </a>
     </Link>
   );
 }
