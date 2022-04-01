@@ -31,10 +31,9 @@ interface HomeProps {
 const Home: NextPage<HomeProps> = props => {
   return (
     <>
-      <Header />
       <img src="/images/logo.svg" alt="logo" />
 
-      <h1>hello</h1>
+      <h1>hellos</h1>
     </>
   );
 };
@@ -44,28 +43,11 @@ export default Home;
 export const getStaticProps: GetStaticProps<HomeProps> = async () => {
   const prismic = getPrismicClient();
 
-  const postsResponse = await prismic.query(
+  const postsPagination = await prismic.query(
     Prismic.predicates.at('document.type', 'posts')
   );
 
-  const posts = postsResponse.results.map(
-    (post): Post => ({
-      uid: post.uid,
-      first_publication_date: formatPostDate(post.last_publication_date),
-      data: {
-        title: post.data.title,
-        subtitle: post.data.subtitle,
-        author: post.data.author,
-      },
-    })
-  );
-
-  const props: HomeProps = {
-    postsPagination: {
-      results: posts,
-      next_page: postsResponse.next_page,
-    },
-  };
+  const props: HomeProps = { postsPagination };
 
   return { props };
 };
