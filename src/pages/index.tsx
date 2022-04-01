@@ -1,14 +1,12 @@
 import { GetStaticProps, NextPage } from 'next';
 
 import Prismic from '@prismicio/client';
+import { useState } from 'react';
 import { getPrismicClient } from '../services/prismic';
-
-import commonStyles from '../styles/common.module.scss';
-import { formatPostDate } from '../utils';
 
 import { PostLink } from '../components/PostLink';
 
-import Header from '../components/Header';
+import commonStyles from '../styles/common.module.scss';
 import styles from './home.module.scss';
 
 interface Post {
@@ -30,15 +28,44 @@ interface HomeProps {
   postsPagination: PostPagination;
 }
 
-const Home: NextPage<HomeProps> = ({ postsPagination: { results } }) => {
+function postsMapper({
+  uid,
+  first_publication_date: date,
+  data,
+}: Post): JSX.Element {
+  return <PostLink key={uid} {...{ date, uid, ...data }} />;
+}
+
+const Home: NextPage<HomeProps> = ({
+  postsPagination: { results, next_page },
+}) => {
+  const [nextPageUrl, setNextPageLink] = useState<string | null>(next_page);
+  const [morePosts, setMorePosts] = useState<Post[]>([]);
+
+  function fetchMorePosts(): void {
+    if (nextPageUrl !== null)
+      fetch(nextPageUrl)
+        .then(resp => resp.json())
+        .then(data => {
+          setNextPageLink(data.next_page);
+          setMorePosts([...morePosts, ...data.results]);
+        });
+  }
+
   return (
-    <>
+    <main>
       <img src="/images/logo.svg" alt="logo" />
 
-      {results.map(({ uid, first_publication_date: date, data }) => (
-        <PostLink key={uid} {...{ date, uid, ...data }} />
-      ))}
-    </>
+      {results.map(postsMapper)}
+
+      {morePosts.map(postsMapper)}
+
+      {nextPageUrl !== null && (
+        <button type="button" onClick={fetchMorePosts}>
+          Carregar mais posts
+        </button>
+      )}
+    </main>
   );
 };
 
@@ -48,7 +75,8 @@ export const getStaticProps: GetStaticProps<HomeProps> = async () => {
   const prismic = getPrismicClient();
 
   const postsPagination = await prismic.query(
-    Prismic.predicates.at('document.type', 'posts')
+    Prismic.predicates.at('document.type', 'posts'),
+    { pageSize: 2 }
   );
 
   const props: HomeProps = { postsPagination };
