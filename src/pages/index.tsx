@@ -6,8 +6,10 @@ import { getPrismicClient } from '../services/prismic';
 import commonStyles from '../styles/common.module.scss';
 import { formatPostDate } from '../utils';
 
-import styles from './home.module.scss';
+import { Post } from '../components/Post';
+
 import Header from '../components/Header';
+import styles from './home.module.scss';
 
 interface Post {
   uid?: string;
@@ -28,12 +30,14 @@ interface HomeProps {
   postsPagination: PostPagination;
 }
 
-const Home: NextPage<HomeProps> = props => {
+const Home: NextPage<HomeProps> = ({ postsPagination: { results } }) => {
   return (
     <>
       <img src="/images/logo.svg" alt="logo" />
 
-      <h1>hellos</h1>
+      {results.map(({ uid, first_publication_date, data }) => (
+        <Post key={uid} date={first_publication_date} {...data} />
+      ))}
     </>
   );
 };
