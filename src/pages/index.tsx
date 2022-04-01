@@ -6,7 +6,7 @@ import { getPrismicClient } from '../services/prismic';
 import commonStyles from '../styles/common.module.scss';
 import { formatPostDate } from '../utils';
 
-import { Post } from '../components/Post';
+import { PostLink } from '../components/PostLink';
 
 import Header from '../components/Header';
 import styles from './home.module.scss';
@@ -35,8 +35,8 @@ const Home: NextPage<HomeProps> = ({ postsPagination: { results } }) => {
     <>
       <img src="/images/logo.svg" alt="logo" />
 
-      {results.map(({ uid, first_publication_date, data }) => (
-        <Post key={uid} date={first_publication_date} {...data} />
+      {results.map(({ uid, first_publication_date: date, data }) => (
+        <PostLink key={uid} {...{ date, uid, ...data }} />
       ))}
     </>
   );
