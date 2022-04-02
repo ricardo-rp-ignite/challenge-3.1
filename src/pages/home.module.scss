@@ -12,11 +12,9 @@
     font: inherit;
     cursor: pointer;
 
-    transition: text-shadow 1s;
-
+    transition: text-shadow 0.2s;
     &:hover, &:focus {
-      text-shadow: 0 0 5px var(--highlight);
-      transition: text-shadow 0.2s cubic-bezier(0, 1, 0, 1.5);
+      text-shadow: 0 0 0.1em var(--highlight);
     }
   }
 }
