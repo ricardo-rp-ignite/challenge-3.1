@@ -1,4 +1,6 @@
 import Link from 'next/link';
+import { FiCalendar, FiUser } from 'react-icons/fi';
+
 import { formatPostDate } from '../../utils';
 
 import styles from './postLink.module.scss';
@@ -27,8 +29,15 @@ export function PostLink({
           <span>{subtitle}</span>
 
           <footer>
-            <time dateTime={date}>{formatPostDate(date)}</time>
-            <address>{author}</address>
+            <time dateTime={date}>
+              <FiCalendar />
+              {formatPostDate(date)}
+            </time>
+
+            <address>
+              <FiUser />
+              {author}
+            </address>
           </footer>
         </article>
       </a>

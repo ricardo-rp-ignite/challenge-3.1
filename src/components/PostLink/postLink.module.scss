@@ -25,6 +25,12 @@
     font-size: 14px;
     color: var(--info);
 
+    > * {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
     address {
       font-style: inherit;
     }
