@@ -1,0 +1,32 @@
+.link {
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+
+  header {
+    font-weight: 700;
+    font-size: 28px;
+    color: var(--heading);
+    margin-bottom: 8px;
+  }
+
+  span {
+    display: flex;
+    font-weight: 400;
+    font-size: 18px;
+    color: var(--body);
+    margin-bottom: 24px;
+  }
+
+  footer {
+    display: flex;
+    gap: 24px;
+    font-weight: 400;
+    font-size: 14px;
+    color: var(--info);
+
+    address {
+      font-style: inherit;
+    }
+  }
+}
