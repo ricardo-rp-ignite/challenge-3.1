@@ -46,7 +46,7 @@ const Home: NextPage<HomeProps> = ({
   }
 
   return (
-    <main>
+    <main className={[commonStyles.container, styles.feed].join(' ')}>
       <img src="/images/logo.svg" alt="logo" />
 
       {posts.map(({ uid, first_publication_date: date, data }) => (
@@ -54,7 +54,11 @@ const Home: NextPage<HomeProps> = ({
       ))}
 
       {nextPageUrl !== null && (
-        <button type="button" onClick={fetchMorePosts}>
+        <button
+          className={styles.loadMore}
+          type="button"
+          onClick={fetchMorePosts}
+        >
           Carregar mais posts
         </button>
       )}

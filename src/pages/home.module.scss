@@ -1,1 +1,22 @@
-// TODO
+.feed {
+  display: grid;
+  gap: 3.3rem;
+
+  justify-items: baseline;
+  align-content: center;
+
+  .loadMore {
+    background: none;
+    color: var(--highlight);
+    border: none;
+    font: inherit;
+    cursor: pointer;
+
+    transition: text-shadow 1s;
+
+    &:hover, &:focus {
+      text-shadow: 0 0 5px var(--highlight);
+      transition: text-shadow 0.2s cubic-bezier(0, 1, 0, 1.5);
+    }
+  }
+}
